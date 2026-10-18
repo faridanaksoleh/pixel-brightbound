@@ -210,8 +210,7 @@ export class GameScene extends Phaser.Scene {
 
   hitBlock(b: Phaser.Physics.Arcade.Sprite) {
     const pb = this.player.body as Phaser.Physics.Arcade.Body;
-    if (!(pb.blocked.up || pb.touching.up) || pb.bottom < b.y + TILE) { if (!(pb.touching.up)) return; }
-    if (this.player.y < b.y + TILE) return;
+    if (!(pb.touching.up || pb.blocked.up) || pb.top < b.y + TILE - 6) return;
     const type = b.getData("type");
     if (type === "brick") {
       this.burst(b.x + 16, b.y + 16, 14); sfx.breakb(); b.destroy(); this.run.score += 50; this.emit();
