@@ -3,7 +3,7 @@ import { WORLDS } from "./levels";
 
 // All pixel art is generated here from rectangles — original, easily replaceable.
 type G = Phaser.GameObjects.Graphics;
-const r = (g: G, c: number, x: number, y: number, w: number, h: number) => { g.fillStyle(c); g.fillRect(x, y, w, h); };
+const r = (g: G, c: number, x = 0, y = 0, w = 0, h = 0) => { g.fillStyle(c); g.fillRect(x, y, w, h); };
 
 function make(scene: Phaser.Scene, key: string, w: number, h: number, draw: (g: G) => void) {
   const g = scene.make.graphics({ x: 0, y: 0 }, false);
@@ -32,7 +32,7 @@ function hero(g: G, pose: string) {
   const legs: Record<string, [number, number, number, number]> = {
     idle: [8, 13, 23, 23], walk1: [6, 15, 22, 24], walk2: [10, 12, 24, 22], jump: [7, 14, 21, 23], fall: [8, 14, 23, 22], shoot: [8, 13, 23, 23],
   };
-  const [a, b, ya, yb] = legs[pose];
+  const [a, b, ya, yb] = legs[pose]!;
   r(g, BLD, a, ya, 4, 6); r(g, BLD, b, yb, 4, 6);
   r(g, BR, a - 1, ya + 6, 6, 3); r(g, BR, b - 1, yb + 6, 6, 3);
 }
