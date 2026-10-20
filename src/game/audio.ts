@@ -60,8 +60,8 @@ export function startMusic() {
   if (!ctx || musicTimer !== null) return;
   let step = 0;
   musicTimer = window.setInterval(() => {
-    tone(mtof(MEL[step % 16]), 0.18, "square", 0.06);
-    if (step % 2 === 0) tone(mtof(BASS[(step / 2) % 8]), 0.3, "triangle", 0.12);
+    tone(mtof(MEL[step % 16]!), 0.18, "square", 0.06);
+    if (step % 2 === 0) tone(mtof(BASS[(step / 2) % 8]!), 0.3, "triangle", 0.12);
     step++;
   }, 190);
 }

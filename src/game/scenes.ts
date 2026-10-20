@@ -13,7 +13,7 @@ type Run = { lives: number; hearts: number; score: number; coins: number; world:
 const newRun = (): Run => ({ lives: 3, hearts: 3, score: 0, coins: 0, world: 0, start: Date.now() });
 
 function addBackground(scene: Phaser.Scene, world: number) {
-  const t = WORLDS[world];
+  const t = WORLDS[world]!;
   scene.cameras.main.setBackgroundColor(t.sky);
   const bg = scene.add.tileSprite(0, 0, W, H, "bg").setOrigin(0).setScrollFactor(0).setTint(t.tint);
   bg.tileScaleX = bg.tileScaleY = H / 1088;
@@ -84,7 +84,7 @@ export class GameScene extends Phaser.Scene {
   plants!: Phaser.Physics.Arcade.Group;
   bullets!: Phaser.Physics.Arcade.Group;
   items!: Phaser.Physics.Arcade.Group;
-  keys!: Record<string, Phaser.Input.Keyboard.Key>;
+  keys!: Record<"left"|"right"|"a"|"d"|"jump"|"up"|"w"|"run"|"shoot"|"esc", Phaser.Input.Keyboard.Key>;
   bgl!: { bg: Phaser.GameObjects.TileSprite; hills: Phaser.GameObjects.TileSprite };
   spawn = { x: 3 * TILE, y: GROUND_ROW * TILE - 40 };
   lastGround = 0; lastJumpPress = -999; lastShot = 0; invuln = 0; facing = 1;
@@ -184,7 +184,7 @@ export class GameScene extends Phaser.Scene {
     this.cameras.main.setRoundPixels(true);
 
     const kb = this.input.keyboard!;
-    this.keys = kb.addKeys({ left: "LEFT", right: "RIGHT", a: "A", d: "D", jump: "SPACE", up: "UP", w: "W", run: "SHIFT", shoot: "J", esc: "ESC" }) as Record<string, Phaser.Input.Keyboard.Key>;
+    this.keys = kb.addKeys({ left: "LEFT", right: "RIGHT", a: "A", d: "D", jump: "SPACE", up: "UP", w: "W", run: "SHIFT", shoot: "J", esc: "ESC" }) as GameScene["keys"];
     kb.on("keydown-ESC", () => this.pauseGame());
 
     this.scene.launch("UI");
@@ -314,7 +314,7 @@ export class GameScene extends Phaser.Scene {
     this.player.setData("shootUntil", this.time.now + 180);
   }
 
-  update(time: number) {
+  override update(time: number) {
     this.bgl.bg.tilePositionX = this.cameras.main.scrollX * 0.15 / this.bgl.bg.tileScaleX;
     this.bgl.hills.tilePositionX = this.cameras.main.scrollX * 0.4;
 
@@ -405,7 +405,7 @@ export class UIScene extends Phaser.Scene {
       score.setText(String(r.score).padStart(6, "0"));
       coins.setText("× " + String(r.coins).padStart(2, "0"));
       stage.setText(`STAGE ${String(r.world + 1).padStart(2, "0")} / ${WORLDS.length}`);
-      stageName.setText(WORLDS[r.world].name.toUpperCase());
+      stageName.setText(WORLDS[r.world]!.name.toUpperCase());
     };
     game.events.on("hud", refresh);
     game.events.on("clear", () => { banner.setText("WORLD CLEAR!").setAlpha(1); sub.setText("The light grows brighter.").setAlpha(1); });
@@ -413,8 +413,8 @@ export class UIScene extends Phaser.Scene {
     refresh();
 
     const r0 = this.registry.get("run") as Run;
-    banner.setText(`${String(r0.world + 1).padStart(2, "0")}  /  ${WORLDS[r0.world].name.toUpperCase()}`);
-    sub.setText(WORLDS[r0.world].tagline);
+    banner.setText(`${String(r0.world + 1).padStart(2, "0")}  /  ${WORLDS[r0.world]!.name.toUpperCase()}`);
+    sub.setText(WORLDS[r0.world]!.tagline);
     this.tweens.add({ targets: [banner, sub], alpha: 0, delay: 2600, duration: 800 });
 
     this.time.addEvent({ delay: 250, loop: true, callback: () => {
