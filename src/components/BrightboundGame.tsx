@@ -14,7 +14,7 @@ export function BrightboundGame() {
     let game: import("phaser").Game | null = null;
     let cancelled = false;
     (async () => {
-      const Phaser = (await import("phaser")).default;
+      const Phaser = await import("phaser");
       const S = await import("@/game/scenes");
       await document.fonts?.ready;
       if (cancelled || !hostRef.current) return;

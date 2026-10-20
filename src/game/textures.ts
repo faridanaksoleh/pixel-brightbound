@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import * as Phaser from "phaser";
 import { WORLDS } from "./levels";
 
 // All pixel art is generated here from rectangles — original, easily replaceable.
