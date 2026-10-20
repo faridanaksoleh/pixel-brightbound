@@ -314,7 +314,7 @@ export class GameScene extends Phaser.Scene {
     this.player.setData("shootUntil", this.time.now + 180);
   }
 
-  update(time: number) {
+  override update(time: number) {
     this.bgl.bg.tilePositionX = this.cameras.main.scrollX * 0.15 / this.bgl.bg.tileScaleX;
     this.bgl.hills.tilePositionX = this.cameras.main.scrollX * 0.4;
 

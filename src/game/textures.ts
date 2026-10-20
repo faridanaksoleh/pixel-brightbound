@@ -89,7 +89,7 @@ export function makeTextures(scene: Phaser.Scene) {
   make(scene, "plant", 28, 36, (g) => {
     r(g, 0x2a8a2a, 12, 18, 4, 18); r(g, 0x4ac04a, 4, 24, 8, 4); r(g, 0x4ac04a, 16, 28, 8, 4);
     g.fillStyle(0xd02a3a); g.fillCircle(14, 11, 11); g.fillStyle(0xffffff);
-    [[8, 6], [18, 5], [12, 15], [20, 13]].forEach(([x, y]) => g.fillRect(x, y, 3, 3));
+    [[8, 6], [18, 5], [12, 15], [20, 13]].forEach(([x, y]) => g.fillRect(x!, y!, 3, 3));
     r(g, 0x3a0a10, 5, 10, 18, 3); r(g, 0xffffff, 7, 9, 2, 2); r(g, 0xffffff, 19, 9, 2, 2);
   });
   make(scene, "pipetop", 64, 32, (g) => {
@@ -109,5 +109,5 @@ export function makeTextures(scene: Phaser.Scene) {
   make(scene, "orb", 16, 16, (g) => { g.fillStyle(0xffe060); g.fillCircle(8, 8, 8); g.fillStyle(0xffffff); g.fillCircle(6, 6, 3); });
   make(scene, "cpflag", 28, 20, (g) => { g.fillStyle(0x3ad0ff); g.fillTriangle(0, 0, 28, 10, 0, 20); });
   make(scene, "cpflagon", 28, 20, (g) => { g.fillStyle(0xff4a5a); g.fillTriangle(0, 0, 28, 10, 0, 20); });
-  make(scene, "flower", 12, 12, (g) => { g.fillStyle(0xffffff); [[3, 3], [9, 3], [3, 9], [9, 9]].forEach(([x, y]) => g.fillCircle(x, y, 3)); g.fillStyle(0xffd040); g.fillCircle(6, 6, 2); });
+  make(scene, "flower", 12, 12, (g) => { g.fillStyle(0xffffff); [[3, 3], [9, 3], [3, 9], [9, 9]].forEach(([x, y]) => g.fillCircle(x!, y!, 3)); g.fillStyle(0xffd040); g.fillCircle(6, 6, 2); });
 }
