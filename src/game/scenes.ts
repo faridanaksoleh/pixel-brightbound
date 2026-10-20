@@ -1,4 +1,4 @@
-import Phaser from "phaser";
+import * as Phaser from "phaser";
 import { WORLDS, TILE, GROUND_ROW, buildLevel, type LevelData } from "./levels";
 import { makeTextures } from "./textures";
 import { sfx, startMusic, stopMusic, unlockAudio, touch } from "./audio";
